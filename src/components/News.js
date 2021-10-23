@@ -38,12 +38,14 @@ import InfiniteScroll from 'react-infinite-scroll-component';
     }
     useEffect(() => {
         updateNews();
+        //eslint-disable-next-line
+        
     }, [])
     
     const fetchMoreData = async () => {
+        
+        const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page+1}&pageSize=${props.pageSize}`
         setPage(page + 1);
-        const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`
-       
         let data = await fetch(url);
         let parsedData = await data.json();
         setArticles( articles.concat(parsedData.articles))
@@ -54,7 +56,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
     
         return (
             <>
-                <h2 className="text-center" style={{ margin: '30px 30px' }}>NewsMonkey-Top Headlines from {capitalizeFirstLetter(props.category)}</h2>
+                <h2 className="text-center" style={{ margin: '30px 30px' ,marginTop:'90px'}}>NewsMonkey-Top Headlines from {capitalizeFirstLetter(props.category)}</h2>
                 {loading && <Spinner />}
                 <InfiniteScroll
                     dataLength={articles.length}
